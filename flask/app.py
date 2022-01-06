@@ -13,7 +13,7 @@ app.secret_key = 'chave'
 @app.route('/')
 def start():
     return render_template(
-        'index.html',
+        'lista.html',
         titulo='Loja',
         produtos=itens_values()
     )
