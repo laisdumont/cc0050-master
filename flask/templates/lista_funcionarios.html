@@ -1,0 +1,23 @@
+{% extends "template.html" %}
+{% block conteudo %}  
+        <table class="table table-striped table-responsive table-bordered">
+            <thead class="thead-default">
+                <tr>
+                    <th>CPF</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>Endereco</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for funcionario in funcionarios %}
+                <tr>
+                    <td>{{funcionario.cpf}}</td>
+                    <td>{{funcionario.nome}}</td>
+                    <td>{{funcionario.telefone}}</td>
+                    <td>{{funcionario.endereco}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

@@ -1,0 +1,5 @@
+*.log
+*.pyc
+*.zip
+*.tar.gz
+*pycache*

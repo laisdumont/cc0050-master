@@ -1,0 +1,1 @@
+docker-compose exec flask pytest -v -s /flask/test_app.py
