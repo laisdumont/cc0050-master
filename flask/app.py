@@ -12,19 +12,19 @@ app.secret_key = 'chave'
 
 @app.route('/')
 def start():
-    return render_template(
-        'lista.html',
-        titulo='Loja',
-        produtos=itens_values()
-    )
+    return render_template('index.html')
+
+
+@app.errorhandler(404) 
+def not_found(e): 
+    return render_template("error.html") 
 
 
 @app.route('/estoque')
 def estoque():
     if 'usuario_autenticado' not in session or session['usuario_autenticado'] == None:
         return redirect(url_for('login', prox=url_for('estoque')))
-    return render_template(
-        'lista.html',
+    return render_template('lista.html',
         titulo='Controle de Estoque',
         produtos=itens_values()
     )
@@ -124,11 +124,11 @@ def DeletarFuncionario(cpf):
 
 
 @app.route('/AtualizarFuncionario/<campo>/<valor>/<cpf>', methods=['GET', 'POST', ])
-def AtualizarFuncionario(campo, valor, cpf):
+def AtualizarFuncionario(campo =None, valor=None, cpf=None):
     print(campo, valor, cpf)
     resp = update_funcionario(campo, valor, cpf)
     if resp:
-        flash('Usuário Deletar!')
+        flash('Usuário Atualizado!')
     else:
         flash('Erro ao atualizar usuário!')
 
@@ -138,25 +138,33 @@ def AtualizarFuncionario(campo, valor, cpf):
 @app.route('/login')
 def login():
     prox = request.args.get('prox')
+    if session['usuario_autenticado'] is not None:
+        flash('Usuário Conectato!')
+        return redirect(url_for('start'))
     return render_template('login.html', prox=prox)
 
 
 @app.route('/autenticacao', methods=['POST', ])
 def autenticacao():
     try:
-        login = users_in_db(request.form['user'])
-        if login:
-            try:
-                users = user(request.form['user'])[0]
-                if users['senha'] == request.form['senha']:
-                    session['usuario_autenticado'] = users['login']
-                    flash(users['nome'] + ' está autenticado!')
-                    nextPage = request.form['prox']
-            except:
-                flash('Erro!')
-                return redirect(url_for('login'))
-            else:
-                return redirect(nextPage)
+        try:
+            login = users_in_db(request.form['user'])
+        except:
+            flash('Usuário não existe!')
+            return redirect(url_for('login'))
+        else:
+            if login:
+                try:
+                    users = user(request.form['user'])[0]
+                    if users['senha'] == request.form['senha']:
+                        session['usuario_autenticado'] = users['login']
+                        flash(users['nome'] + ' está autenticado!')
+                        nextPage = request.form['prox']
+                except:
+                    flash('Senha errada!')
+                    return redirect(url_for('login'))
+                else:
+                    return redirect(nextPage)
     except:
         flash('Erro!')
         return redirect(url_for('login'))
@@ -166,7 +174,7 @@ def autenticacao():
 @app.route('/deslogar')
 def deslogar():
     session['usuario_autenticado'] = None
-    flash('Não há usuários autenticados!')
+    flash('Usuário Desconectado!')
     return redirect(url_for('start'))
 
 

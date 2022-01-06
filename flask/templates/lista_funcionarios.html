@@ -1,3 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style_cab.css">
+    <title>Document</title>
+
+</head>
+<body>
+    <header>
+        <div class="container-logo">
+            <div class="logo-imagem"></div> 
+            <div class="logo-texto"><h1>ByMarinho</h1>
+            </div>
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="/">Home</a></li>
+            </ul>
+        </div>
+    </header>
+    
+</body>
+</html>
 {% extends "template.html" %}
 {% block conteudo %}  
         <table class="table table-striped table-responsive table-bordered">
@@ -7,6 +33,8 @@
                     <th>Nome</th>
                     <th>Telefone</th>
                     <th>Endereco</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -16,7 +44,8 @@
                     <td>{{funcionario.nome}}</td>
                     <td>{{funcionario.telefone}}</td>
                     <td>{{funcionario.endereco}}</td>
-                </tr>
+                    <td><a href="#">Editar</a></td>
+                    <td><a href="{{url_for('DeletarFuncionario',cpf=funcionario.cpf)}}">Excluir</a></td>
             {% endfor %}
             </tbody>
         </table>

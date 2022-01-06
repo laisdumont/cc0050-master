@@ -181,10 +181,9 @@ def update_funcionario(campo, valor, cpf):
         conn = sqlite3.connect('flask/sistema_loja.db')
 
         cursor = conn.cursor()
-
         cursor.execute(f"""
                 UPDATE funcionarios
-                {campo} = '{valor}'
+                SET {campo} = '{valor}'
                 WHERE cpf = '{cpf}'
         """)
 

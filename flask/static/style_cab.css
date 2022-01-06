@@ -1,0 +1,30 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+header{
+    width: 100%;
+    background-color: #a894c5;
+    display: flex;
+    justify-content: space-around;
+}
+.menu li{
+    display: inline-block;
+}
+.menu li a{
+    font-size: 24px;
+    text-decoration: none;
+    color: antiquewhite;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+.menu li a:hover{
+    background-color:rgba(100, 100, 100, 0.8);
+}
+.logo-texto{
+    margin-left: 20 px;
+    color: aliceblue;
+}

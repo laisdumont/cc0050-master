@@ -1,3 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style_cab.css">
+    <title>Document</title>
+
+</head>
+<body>
+    <header>
+        <div class="container-logo">
+            <div class="logo-imagem"></div> 
+            <div class="logo-texto"><h1>ByMarinho</h1>
+            </div>
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="/">Home</a></li>
+            </ul>
+        </div>
+    </header>
+    
+</body>
+</html>
 {% extends "template.html" %}
 {% block conteudo %}       
        <form action="{{ url_for('AdicionarFuncionario') }}" method="post">
