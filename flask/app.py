@@ -123,6 +123,18 @@ def DeletarFuncionario(cpf):
     return redirect(url_for('funcionarios'))
 
 
+@app.route('/AtualizarFuncionario/<campo>&<valor>&<cpf>', methods=['GET', 'POST', ])
+def AtualizarFuncionario(campo, valor, cpf):
+    print(campo, valor, cpf)
+    resp = update_funcionario(campo, valor, cpf)
+    if resp:
+        flash('Usuário Deletar!')
+    else:
+        flash('Erro ao atualizar usuário!')
+
+    return redirect(url_for('funcionarios'))
+
+
 @app.route('/login')
 def login():
     prox = request.args.get('prox')
