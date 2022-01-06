@@ -123,7 +123,7 @@ def DeletarFuncionario(cpf):
     return redirect(url_for('funcionarios'))
 
 
-@app.route('/AtualizarFuncionario/<campo>&<valor>&<cpf>', methods=['GET', 'POST', ])
+@app.route('/AtualizarFuncionario/<campo>/<valor>/<cpf>', methods=['GET', 'POST', ])
 def AtualizarFuncionario(campo, valor, cpf):
     print(campo, valor, cpf)
     resp = update_funcionario(campo, valor, cpf)
@@ -143,18 +143,24 @@ def login():
 
 @app.route('/autenticacao', methods=['POST', ])
 def autenticacao():
-    login = users_in_db(request.form['user'])
-    print("entrou")
-    if login:
-        users = user(request.form['user'])[0]
-        if users['senha'] == request.form['senha']:
-            session['usuario_autenticado'] = users['login']
-            flash(users['nome'] + ' está autenticado!')
-            nextPage = request.form['prox']
-            return redirect(nextPage)
-    else:
-        flash('Erro')
+    try:
+        login = users_in_db(request.form['user'])
+        if login:
+            try:
+                users = user(request.form['user'])[0]
+                if users['senha'] == request.form['senha']:
+                    session['usuario_autenticado'] = users['login']
+                    flash(users['nome'] + ' está autenticado!')
+                    nextPage = request.form['prox']
+            except:
+                flash('Erro!')
+                return redirect(url_for('login'))
+            else:
+                return redirect(nextPage)
+    except:
+        flash('Erro!')
         return redirect(url_for('login'))
+
 
 
 @app.route('/deslogar')
